@@ -1,0 +1,38 @@
+Raiz: A
+Ramas: B,C,D,E,F,G,H
+Hojas: I,J,G,K,L
+------------------------------------------------------------------------
+nivel de los nodos
+
+A: 0
+B: 1
+C: 2
+D: 2
+E: 3
+F: 3
+G: 3
+H: 3
+I: 4
+J: 4
+K: 4
+L: 4
+------------------------------------------------------------------------
+Profundidad: 4
+Peso: 12
+Orden: 2
+--------------------------------------------------------------------------
+sub arbol
+
+     D
+   /   \
+  G     H
+       / \
+      K   L
+--------------------------------------------------------------------------
+no es lleno porque no todos los nodos los nodos tienen 0 o 2 hijos
+---------------------------------------------------------------------
+no es perfecto porque no todas las hojas se encuentran en el mismo nivel
+--------------------------------------------------------------
+In-orden: I,E,C,J,F,B,G,D,K,H,L,A
+Pre-orden: A,B,C,E,I,F,J,D,G,H,K,L
+Post-orden: I,E,J,F,C,G,D,K,L,H,B,A
