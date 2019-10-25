@@ -29,6 +29,42 @@ void insertarFinal(int num) {
     }
 }
 
+void insertarFinalPar(Nodo *&pIniciopar,int num) {
+    Nodo *nuevo = new Nodo;
+    nuevo->dato = num;
+    nuevo->siguiente = NULL;
+
+    if (parInicio == NULL) {
+        parInicio = nuevo;
+    } else {
+        Nodo *p = parInicio;
+        Nodo *q = NULL;
+        while (p != NULL) {
+            q = p;
+            p = p->siguiente;
+        }
+        q->siguiente = nuevo;
+    }
+}
+
+void insertarFinalImpar(Nodo *&pInicioimpar,int num) {
+    Nodo *nuevo = new Nodo;
+    nuevo->dato = num;
+    nuevo->siguiente = NULL;
+
+    if (imparInicio == NULL) {
+        imparInicio = nuevo;
+    } else {
+        Nodo *p = imparInicio;
+        Nodo *q = NULL;
+        while (p != NULL) {
+            q = p;
+            p = p->siguiente;
+        }
+        q->siguiente = nuevo;
+    }
+}
+
 void mostrarLista() {
     Nodo *s = pInicio;
 
@@ -56,83 +92,28 @@ void mostrarListaImpar() {
     }
 }
 
-void separarLista(Nodo *&inicioLista) {
-    Nodo *s = new Nodo;
-    s = inicioLista;
-    if (s->siguiente == NULL) {
-        if (s->dato % 2 == 0) {
-            s->siguiente = NULL;
-
-            if (parInicio == NULL) {
-                parInicio = s;
-            } else {
-                Nodo *p = parInicio;
-                Nodo *q = NULL;
-                while (p != NULL) {
-                    q = p;
-                    p = p->siguiente;
-                }
-                q->siguiente = s;
-            }
-
-        } else {
-            s->siguiente = NULL;
-
-            if (imparInicio == NULL) {
-                imparInicio = s;
-            } else {
-                Nodo *p = imparInicio;
-                Nodo *q = NULL;
-                while (p != NULL) {
-                    q = p;
-                    p = p->siguiente;
-                }
-                q->siguiente = s;
-            }
-
-        }
-        return;
-    } else {
-        if (s->dato % 2 == 0) {
-            s->siguiente = NULL;
-
-            if (parInicio == NULL) {
-                parInicio = s;
-            } else {
-                Nodo *p = parInicio;
-                Nodo *q = NULL;
-                while (p != NULL) {
-                    q = p;
-                    p = p->siguiente;
-                }
-                q->siguiente = s;
-            }
-
-        }
-        else {
-            s->siguiente = NULL;
-
-            if (imparInicio == NULL) {
-                imparInicio = s;
-            } else {
-                Nodo *p = imparInicio;
-                Nodo *q = NULL;
-                while (p != NULL) {
-                    q = p;
-                    p = p->siguiente;
-                }
-                q->siguiente = s;
-            }
-
-        }
-        separarLista(s->siguiente);
-
-    }
+void separarLista(Nodo *&pInicio, Nodo *&pIniciopar, Nodo *&pInicioimpar){
+	int aux1, aux2;
+	Nodo *s;
+	while(pInicio!=NULL){
+		s=pInicio;
+		if(s->dato%2==0){
+			aux1=s->dato;
+			insertarFinalPar(pIniciopar,aux1);
+		}else{
+			aux2=s->dato;
+			insertarFinalImpar(pInicioimpar,aux2);
+		}
+		pInicio=pInicio->siguiente;
+		delete s;
+	 }
 }
 
 int main() {
     cout << "Inicializando..." << endl;
     pInicio = NULL;
+    parInicio = NULL;
+    imparInicio = NULL;
     int newnumber;
 
     bool continuar = true;
@@ -150,8 +131,12 @@ int main() {
             case 2: cout << "Separando..." << endl;
                 cout << "Lista original:" << endl;
                 mostrarLista();
-                separarLista(pInicio);
+                separarLista(pInicio, parInicio,imparInicio);
+                cout<<endl;
+                cout<<"Lista de elementos pares:"<<endl;
                 mostrarListaPar();
+                cout<<endl;
+                cout<<"Lista de elementos impares:"<<endl;
                 mostrarListaImpar();
                 break;
             case 3: continuar = false;
